@@ -103,14 +103,17 @@
   <hop> <from>Dummy &#x28;do nothing&#x29;</from><to>Get JIRA case ID</to><enabled>Y</enabled> </hop>
   <hop> <from>status - code-complete</from><to>Dummy &#x28;do nothing&#x29;</to><enabled>Y</enabled> </hop>
   <hop> <from>status - resolved</from><to>Dummy &#x28;do nothing&#x29;</to><enabled>Y</enabled> </hop>
-  <hop> <from>Dummy &#x28;do nothing&#x29;</from><to>Handled activities</to><enabled>Y</enabled> </hop>
+  <hop> <from>Dummy &#x28;do nothing&#x29;</from><to>Recognized activities</to><enabled>Y</enabled> </hop>
   <hop> <from>Parse</from><to>remove spaces</to><enabled>Y</enabled> </hop>
   <hop> <from>code-compelete</from><to>case created</to><enabled>Y</enabled> </hop>
-  <hop> <from>case created</from><to>Not handled activities</to><enabled>Y</enabled> </hop>
   <hop> <from>case created</from><to>status - case created</to><enabled>Y</enabled> </hop>
   <hop> <from>status - case created</from><to>Dummy &#x28;do nothing&#x29;</to><enabled>Y</enabled> </hop>
   <hop> <from>remove spaces</from><to>remove CRLF</to><enabled>Y</enabled> </hop>
   <hop> <from>remove CRLF</from><to>Fixed</to><enabled>Y</enabled> </hop>
+  <hop> <from>case created</from><to>verified-locally</to><enabled>Y</enabled> </hop>
+  <hop> <from>verified-locally</from><to>Not recognized activities</to><enabled>Y</enabled> </hop>
+  <hop> <from>verified-locally</from><to>status - verified locally</to><enabled>Y</enabled> </hop>
+  <hop> <from>status - verified locally</from><to>Dummy &#x28;do nothing&#x29;</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Fixed</name>
@@ -135,8 +138,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>527</xloc>
-      <yloc>444</yloc>
+      <xloc>570</xloc>
+      <yloc>225</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -283,8 +286,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>333</yloc>
+      <xloc>714</xloc>
+      <yloc>223</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -373,8 +376,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1288</xloc>
-      <yloc>281</yloc>
+      <xloc>1090</xloc>
+      <yloc>532</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -478,8 +481,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>238</yloc>
+      <xloc>880</xloc>
+      <yloc>227</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -511,8 +514,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>760</xloc>
-      <yloc>436</yloc>
+      <xloc>570</xloc>
+      <yloc>362</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -544,8 +547,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>760</xloc>
-      <yloc>333</yloc>
+      <xloc>716</xloc>
+      <yloc>363</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -577,8 +580,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>758</xloc>
-      <yloc>237</yloc>
+      <xloc>885</xloc>
+      <yloc>369</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -622,8 +625,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1083</xloc>
-      <yloc>279</yloc>
+      <xloc>785</xloc>
+      <yloc>539</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -703,14 +706,14 @@
     </ConcatFields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1183</xloc>
-      <yloc>278</yloc>
+      <xloc>976</xloc>
+      <yloc>538</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Not handled activities</name>
+    <name>Not recognized activities</name>
     <type>TextFileOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -734,7 +737,7 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;not handled</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;not recognized</name>
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
@@ -767,14 +770,14 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>15</yloc>
+      <xloc>1239</xloc>
+      <yloc>118</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Handled activities</name>
+    <name>Recognized activities</name>
     <type>TextFileOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -798,7 +801,7 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;handled</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;recognized</name>
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
@@ -831,8 +834,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>968</xloc>
-      <yloc>158</yloc>
+      <xloc>384</xloc>
+      <yloc>551</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -850,8 +853,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>974</xloc>
-      <yloc>280</yloc>
+      <xloc>572</xloc>
+      <yloc>542</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -902,7 +905,7 @@
            <schema_name/>
            </partitioning>
 <send_true_to>status - case created</send_true_to>
-<send_false_to>Not handled activities</send_false_to>
+<send_false_to>verified-locally</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -918,8 +921,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>531</xloc>
-      <yloc>138</yloc>
+      <xloc>1062</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -951,8 +954,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>755</xloc>
-      <yloc>141</yloc>
+      <xloc>1065</xloc>
+      <yloc>366</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -985,15 +988,56 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>353</xloc>
-      <yloc>440</yloc>
+      <xloc>441</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Get System Info</name>
-    <type>SystemInfo</type>
+    <name>verified-locally</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>status - verified locally</send_true_to>
+<send_false_to>Not recognized activities</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>title</leftvalue>
+   <function>CONTAINS</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>changedtheLabelsto</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>AND</operator>
+   <leftvalue>title</leftvalue>
+   <function>CONTAINS</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>&#x27;verified-locally&#x27;</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1237</xloc>
+      <yloc>229</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>status - verified locally</name>
+    <type>Constant</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1003,11 +1047,23 @@
            <schema_name/>
            </partitioning>
     <fields>
-      </fields>
+      <field>
+        <name>status</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>verified locally</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>74</xloc>
-      <yloc>354</yloc>
+      <xloc>1241</xloc>
+      <yloc>381</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
