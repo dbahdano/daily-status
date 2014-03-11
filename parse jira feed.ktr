@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>get date range</name>
+    <name>parse jira feed</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,16 +67,286 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2014&#x2f;03&#x2f;11 00&#x3a;29&#x3a;21.441</created_date>
+  <created_date>2014&#x2f;03&#x2f;11 18&#x3a;56&#x3a;55.027</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2014&#x2f;03&#x2f;11 00&#x3a;29&#x3a;21.441</modified_date>
+  <modified_date>2014&#x2f;03&#x2f;11 18&#x3a;56&#x3a;55.027</modified_date>
   </info>
   <notepads>
   </notepads>
   <order>
-  <hop> <from>Get System Info</from><to>Modified Java Script Value</to><enabled>Y</enabled> </hop>
-  <hop> <from>Modified Java Script Value</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get JIRA Feed</from><to>Parse</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get rows from result</from><to>Get JIRA Feed</to><enabled>Y</enabled> </hop>
+  <hop> <from>Parse</from><to>Parsed</to><enabled>N</enabled> </hop>
+  <hop> <from>remove spaces</from><to>remove CRLF</to><enabled>Y</enabled> </hop>
+  <hop> <from>Parse</from><to>remove spaces</to><enabled>Y</enabled> </hop>
+  <hop> <from>remove CRLF</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Get JIRA Feed</name>
+    <type>HTTP</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <url>http&#x3a;&#x2f;&#x2f;jira.pentaho.com&#x2f;activity&#x3f;maxResults&#x3d;&#x24;&#x7b;maxResults&#x7d;&#x26;streams&#x3d;user&#x2b;IS&#x2b;&#x24;&#x7b;url_username&#x7d;&#x26;os_authType&#x3d;basic&#x26;title&#x3d;undefined&#x26;streams&#x3d;update-date&#x2b;BETWEEN&#x2b;&#x24;&#x7b;fromTs&#x7d;&#x2b;&#x24;&#x7b;toTs&#x7d;</url>
+    <urlInField>N</urlInField>
+    <urlField/>
+    <encoding>UTF-8</encoding>
+    <httpLogin>&#x24;&#x7b;user&#x7d;</httpLogin>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <socketTimeout>10000</socketTimeout>
+    <connectionTimeout>10000</connectionTimeout>
+    <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
+    <lookup>
+    </lookup>
+    <result>
+      <name>result</name>
+      <code/>
+      <response_time/>
+    </result>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>325</xloc>
+      <yloc>301</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get rows from result</name>
+    <type>RowsFromResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>fromTs</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        </field>      <field>        <name>toTs</name>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        </field>      </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>191</xloc>
+      <yloc>298</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Parse</name>
+    <type>getXMLData</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <namespaceaware>N</namespaceaware>
+    <ignorecomments>N</ignorecomments>
+    <readurl>N</readurl>
+    <validating>N</validating>
+    <usetoken>N</usetoken>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <rownum_field/>
+    <encoding>UTF-8</encoding>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>title</name>
+        <xpath>&#x2a;&#x5b;name&#x28;&#x29;&#x3d;&#x27;title&#x27;&#x5d;</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <loopxpath>&#x2f;&#x2a;&#x5b;name&#x28;&#x29;&#x3d;&#x27;feed&#x27;&#x5d;&#x2f;&#x2a;&#x5b;name&#x28;&#x29;&#x3d;&#x27;entry&#x27;&#x5d;</loopxpath>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <XmlField>result</XmlField>
+    <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>422</xloc>
+      <yloc>298</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Parsed</name>
+    <type>TextFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <separator>&#x3b;</separator>
+    <enclosure>&#x22;</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;parsed</name>
+      <is_command>N</is_command>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <name>title</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>both</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>182</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>remove CRLF</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>title</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>cr</remove_special_characters>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>643</xloc>
+      <yloc>299</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>remove spaces</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>title</in_stream_name>
+        <out_stream_name/>
+        <trim_type>both</trim_type>
+        <lower_upper>none</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>espace</remove_special_characters>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>537</xloc>
+      <yloc>299</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Copy rows to result</name>
     <type>RowsToResult</type>
@@ -90,67 +360,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>448</xloc>
-      <yloc>149</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get System Info</name>
-    <type>SystemInfo</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>curr_date</name>
-        <type>system date &#x28;variable&#x29;</type>
-        </field>
-      <field>
-        <name>midnight</name>
-        <type>today start</type>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>108</xloc>
-      <yloc>148</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Modified Java Script Value</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var dayOfTheWeek &#x3d; getDayNumber&#x28;curr_date,&#x22;w&#x22;&#x29;&#x3b;&#xd;&#xa;var range_key &#x3d; &#x22;day&#x22;&#x2b;dayOfTheWeek&#x3b;&#xd;&#xa;&#xd;&#xa;var standup_days &#x3d; &#x5b;2,3,5,6&#x5d;&#x3b;&#xd;&#xa;var range &#x3d; &#x5b;3,1,2,1&#x5d;&#x3b;&#xd;&#xa;&#xd;&#xa;var period &#x3d; 0&#x3b;&#xd;&#xa;var toTs &#x3d; 0&#x3b;&#xd;&#xa;var fromTs &#x3d; 0&#x3b;&#xd;&#xa;for &#x28;i &#x3d; 0&#x3b; i &#x3c; standup_days.length&#x3b; i&#x2b;&#x2b;&#x29; &#x7b;&#xd;&#xa;	if &#x28;dayOfTheWeek &#x3d;&#x3d; standup_days&#x5b;i&#x5d;&#x29; &#x7b;&#xd;&#xa;		period &#x3d; range&#x5b;i&#x5d;&#x3b;&#xd;&#xa;		&#x2f;&#x2f; calculate from&#x2f;to timestamps&#xd;&#xa;		toTs &#x3d; midnight.getTime&#x28;&#x29; &#x2b; 13 &#x2a; 60 &#x2a; 60 &#x2a; 1000&#x3b; &#x2f;&#x2f; 13.00&#xd;&#xa;		fromTs &#x3d; toTs - period &#x2a; 24 &#x2a; 60 &#x2a; 60 &#x2a; 1000 &#x2b; 1&#x3b; &#x2f;&#x2f; 13&#x3a;00 of the last reporing day&#xd;&#xa;		setVariable&#x28;&#x22;fromTs&#x22;,fromTs, &#x22;r&#x22;&#x29;&#x3b;&#xd;&#xa;		setVariable&#x28;&#x22;toTs&#x22;,toTs, &#x22;r&#x22;&#x29;&#x3b;&#xd;&#xa;	&#x7d;	&#xd;&#xa;&#x7d;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;</jsScript_script>
-      </jsScript>      <jsScript>        <jsScript_type>-1</jsScript_type>
-        <jsScript_name>getDayNumber_Sample</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f; Returns the number of a date, inside the&#xa;&#x2f;&#x2f; given type.&#xa;&#x2f;&#x2f;&#xa;&#x2f;&#x2f; Usage&#x3a;&#xa;&#x2f;&#x2f; getDayNumber&#x28;var,var&#x29;&#x3b;&#xa;&#x2f;&#x2f; 1&#x3a; Date - The Variable with the Date.&#xa;&#x2f;&#x2f; 2&#x3a; String - The Type&#x3a;&#xa;&#x2f;&#x2f; y - Day in Year&#xa;&#x2f;&#x2f; m - Day in Month&#xa;&#x2f;&#x2f; w - Day in Week&#xa;&#x2f;&#x2f; wm - Day of Week in Month &#xa;&#x2f;&#x2f;&#xa;&#x2f;&#x2f; 2006-11-15&#xa;&#x2f;&#x2f;&#xa;var d1 &#x3d; new Date&#x28;&#x29;&#x3b;&#xa;Alert&#x28;getDayNumber&#x28;d1, &#x22;y&#x22;&#x29;&#x29;&#x3b;&#xa;Alert&#x28;getDayNumber&#x28;d1, &#x22;m&#x22;&#x29;&#x29;&#x3b;&#xa;Alert&#x28;getDayNumber&#x28;d1, &#x22;w&#x22;&#x29;&#x29;&#x3b;&#xa;Alert&#x28;getDayNumber&#x28;d1, &#x22;wm&#x22;&#x29;&#x29;&#x3b;&#xa;      </jsScript_script>
-      </jsScript>      <jsScript>        <jsScript_type>-1</jsScript_type>
-        <jsScript_name>setVariable_Sample</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f; Set a Value as Kettle&#x2f;Pentaho variable&#xa;&#x2f;&#x2f; &#xa;&#x2f;&#x2f; Usage&#x3a;&#xa;&#x2f;&#x2f; setVariable&#x28;var,var,var&#x29;&#x3b;&#xa;&#x2f;&#x2f; 1&#x3a; String - The name of the variable to set.&#xa;&#x2f;&#x2f; 2&#x3a; Variable - The value which should be assigned&#xa;&#x2f;&#x2f; 3&#x3a; Type - &#x22;s&#x22;ystem, &#x22;r&#x22;oot, &#x22;p&#x22;arent, &#x22;g&#x22;randparent. Upto which&#xa;&#x2f;&#x2f;           level the variable is set.&#xa;&#x2f;&#x2f;&#xa;&#x2f;&#x2f; 2007-07-27&#xa;&#x2f;&#x2f;&#xa;var strVarName&#x3d;&#x22;setEnvTest&#x22;&#x3b;&#xa;var strVarValue&#x3d;&#x22;123456&#x22;&#x3b;&#xa;Alert&#x28;getVariable&#x28;strVarName, &#x22;&#x22;&#x29;&#x29;&#x3b;&#xa;setVariable&#x28;strVarName,strVarValue, &#x22;r&#x22;&#x29;&#x3b;&#xa;Alert&#x28;getVariable&#x28;strVarName, &#x22;&#x22;&#x29;&#x29;&#x3b;&#xa;strVarValue&#x3d;&#x22;654321&#x22;&#x3b;&#xa;setVariable&#x28;strVarName,strVarValue, &#x22;r&#x22;&#x29;&#x3b;&#xa;Alert&#x28;getVariable&#x28;strVarName, &#x22;&#x22;&#x29;&#x29;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>272</xloc>
-      <yloc>150</yloc>
+      <xloc>758</xloc>
+      <yloc>299</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
