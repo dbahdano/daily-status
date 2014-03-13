@@ -82,6 +82,25 @@
   <hop> <from>remove CRLF</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>
   </order>
   <step>
+    <name>Copy rows to result</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>758</xloc>
+      <yloc>299</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Get JIRA Feed</name>
     <type>HTTP</type>
     <description/>
@@ -96,8 +115,8 @@
     <urlInField>N</urlInField>
     <urlField/>
     <encoding>UTF-8</encoding>
-    <httpLogin>&#x24;&#x7b;user&#x7d;</httpLogin>
-    <httpPassword>Encrypted </httpPassword>
+    <httpLogin>ivan</httpLogin>
+    <httpPassword>Encrypted 6bc8f9c1ac18c6958bbb18bd63c99dbdde</httpPassword>
     <proxyHost/>
     <proxyPort/>
     <socketTimeout>10000</socketTimeout>
@@ -342,25 +361,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>537</xloc>
-      <yloc>299</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Copy rows to result</name>
-    <type>RowsToResult</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>758</xloc>
       <yloc>299</yloc>
       <draw>Y</draw>
       </GUI>

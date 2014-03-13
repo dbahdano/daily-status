@@ -23,7 +23,7 @@
         </parameter>
         <parameter>
             <name>user</name>
-            <default_value>dzmitry_bahdanovich</default_value>
+            <default_value>ivan</default_value>
             <description/>
         </parameter>
     </parameters>
